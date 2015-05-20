@@ -48,7 +48,7 @@ if eisbn.length == 0
 end
 # --------------------HTML FILE DATA END--------------------
 
-input_filename = File.join(Bkmkr::Dir.tmp_dir, Bkmkr::Project.filename, "#{pisbn}.pdf")
+input_filename = File.join(Bkmkr::Paths.done_dir, pisbn, "#{pisbn}.pdf")
 pitstop_dir = File.join("P:", "torDOTcom_POD", "input")
 pitstop_filename = File.join(pitstop_dir, "#{Bkmkr::Project.project_dir}_#{Bkmkr::Project.stage_dir}-#{pisbn}.pdf")
 
