@@ -8,7 +8,7 @@ require_relative '../bookmaker/header.rb'
 # out of the HTML file.
 
 # the working html file
-html_file = "#{Bkmkr::Dir.tmp_dir}\\#{Bkmkr::Project.filename}\\outputtmp.html"
+html_file = Bkmkr::Paths.outputtmp_html
 
 # testing to see if ISBN style exists
 spanisbn = File.read("#{html_file}").scan(/spanISBNisbn/)
@@ -48,11 +48,8 @@ if eisbn.length == 0
 end
 # --------------------HTML FILE DATA END--------------------
 
-#input_filename = File.join(Bkmkr::Dir.tmp_dir, Bkmkr::Project.filename, "#{pisbn}.pdf")
-#input_filename = "#{Bkmkr::Dir.tmp_dir}\\#{Bkmkr::Project.filename}\\#{pisbn}.pdf"
-input_filename = "#{Bkmkr::Project.working_dir}\\done\\#{pisbn}\\#{pisbn}_POD.pdf"
-#pitstop_dir = File.join("P:", "torDOTcom_POD", "input")
-#pitstop_filename = File.join(pitstop_dir, "#{Bkmkr::Project.project_dir}_#{Bkmkr::Project.stage_dir}-#{pisbn}.pdf")
-pitstop_filename = "P:\\torDOTcom_POD\\input\\#{Bkmkr::Project.project_dir}_#{Bkmkr::Project.stage_dir}-#{pisbn}_POD.pdf"
+input_filename = File.join(Bkmkr::Dir.tmp_dir, Bkmkr::Project.filename, "#{pisbn}.pdf")
+pitstop_dir = File.join("P:", "torDOTcom_POD", "input")
+pitstop_filename = File.join(pitstop_dir, "#{Bkmkr::Project.project_dir}_#{Bkmkr::Project.stage_dir}-#{pisbn}.pdf")
 
 FileUtils.cp(input_filename, pitstop_filename)
