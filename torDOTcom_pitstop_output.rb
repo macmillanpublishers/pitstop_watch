@@ -5,6 +5,6 @@ input_file = input_file.split(Regexp.union(*[File::SEPARATOR, File::ALT_SEPARATO
 filename = input_file.split(Regexp.union(*[File::SEPARATOR, File::ALT_SEPARATOR].compact)).pop.split("-").pop
 isbn = filename.split("_").shift
 project_dir = input_file.split(Regexp.union(*[File::SEPARATOR, File::ALT_SEPARATOR].compact)).pop.split("-").shift
-final_dir = File.join("S:", "bookmaker", project_dir, "done", "#{isbn}", "PIT_#{filename}")
+final_dir = File.join("S:", "bookmaker", project_dir, "done", "#{isbn}", "#{filename}")
 
 FileUtils.mv(input_file, final_dir)
