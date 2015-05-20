@@ -48,6 +48,11 @@ if eisbn.length == 0
 end
 # --------------------HTML FILE DATA END--------------------
 
+# Add a notice to the conversion dir warning that the process is in use
+File.open("#{Bkmkr::Paths.alert}", 'w') do |output|
+	output.write "The conversion processor is currently running. Please do not submit any new files or images until the process completes."
+end
+
 input_filename = File.join(Bkmkr::Paths.done_dir, pisbn, "#{pisbn}.pdf")
 pitstop_dir = File.join("P:", "torDOTcom_POD", "input")
 pitstop_filename = File.join(pitstop_dir, "#{Bkmkr::Project.project_dir}_#{Bkmkr::Project.stage_dir}-#{pisbn}.pdf")
