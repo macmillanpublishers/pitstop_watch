@@ -10,3 +10,4 @@ alert = File.join("S:", "bookmaker", project_dir, "IN_USE_PLEASE_WAIT.txt")
 
 FileUtils.cp(input_file, final_dir)
 FileUtils.rm(alert)
+FileUtils.rm(input_file)
