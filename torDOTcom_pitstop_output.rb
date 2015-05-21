@@ -6,7 +6,7 @@ filename = input_file.split(Regexp.union(*[File::SEPARATOR, File::ALT_SEPARATOR]
 isbn = filename.split(".").shift
 project_dir = input_file.split(Regexp.union(*[File::SEPARATOR, File::ALT_SEPARATOR].compact)).pop.split("-").shift
 final_dir = File.join("S:", "bookmaker", project_dir, "done", "#{isbn}", "#{isbn}_POD.pdf")
-alert = File.join("S:", "bookmaker", project_dir, "IN_USE_PLEASE_WAIT.txt")
+# alert = File.join("S:", "bookmaker", project_dir, "IN_USE_PLEASE_WAIT.txt")
 
 FileUtils.mv(input_file, final_dir)
-FileUtils.rm(alert)
+# FileUtils.rm(alert)
