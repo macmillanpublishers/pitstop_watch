@@ -8,5 +8,5 @@ project_dir = input_file.split(Regexp.union(*[File::SEPARATOR, File::ALT_SEPARAT
 final_dir = File.join("S:", "bookmaker", project_dir, "done", "#{isbn}", "#{isbn}_POD.pdf")
 alert = File.join("S:", "bookmaker", project_dir, "IN_USE_PLEASE_WAIT.txt")
 
-FileUtils.mv(input_file, final_dir)
+FileUtils.cp(input_file, final_dir)
 FileUtils.rm(alert)
