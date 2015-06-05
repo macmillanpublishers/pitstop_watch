@@ -1,7 +1,7 @@
 require 'fileutils'
 
-require_relative '../bookmaker/header.rb'
-require_relative '../bookmaker/metadata.rb'
+require_relative '../bookmaker/core/header.rb'
+require_relative '../bookmaker/core/metadata.rb'
 
 input_filename = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "#{Metadata.pisbn}_POD.pdf")
 pitstop_dir = File.join("P:", "torDOTcom_POD", "input")

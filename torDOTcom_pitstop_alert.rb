@@ -1,4 +1,4 @@
-require_relative '../bookmaker/header.rb'
+require_relative '../bookmaker/core/header.rb'
 
 # Add a notice to the conversion dir warning that the process is in use
 File.open("#{Bkmkr::Paths.alert}", 'w') do |output|
