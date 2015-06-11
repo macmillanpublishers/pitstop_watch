@@ -9,6 +9,5 @@ final_dir = File.join("S:", "bookmaker", project_dir, "done", "#{isbn}", "#{isbn
 alert = File.join("S:", "bookmaker", project_dir, "IN_USE_PLEASE_WAIT.txt")
 
 FileUtils.cp(input_file, final_dir)
-sleep(60)
 FileUtils.rm(alert)
 FileUtils.rm(input_file)
