@@ -39,7 +39,7 @@ else
 	end
 end
 
-FileUtils.rm(input_file)
+FileUtils.rm(pitstop_filename)
 
 # old script
 # unescapeargv = ARGV[0].chomp('"').reverse.chomp('"').reverse
