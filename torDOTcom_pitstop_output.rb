@@ -45,9 +45,9 @@ FileUtils.rm(pitstop_filename)
 
 # see if pitstop failed
 if File.file?(pitstop_error)
-	test_pitstop_status = "----- pitstop finished successfully"
-else
 	test_pitstop_status = "----- pitstop FAILED"
+else
+	test_pitstop_status = "----- pitstop finished successfully"
 end
 
 # Printing the test results to the log file
