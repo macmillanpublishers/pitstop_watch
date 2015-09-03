@@ -4,14 +4,18 @@ require_relative '../bookmaker/core/header.rb'
 require_relative '../bookmaker/core/metadata.rb'
 
 if File.file?("#{Bkmkr::Paths.resource_dir}/staging.txt")
-	pitstop_dir = File.join("P:", "#{project_dir}_POD_staging", "input")
+	pitstop_dir = File.join("P:", "#{project_dir}_POD_staging", "done")
 else
-	pitstop_dir = File.join("P:", "#{project_dir}_POD", "input")
+	pitstop_dir = File.join("P:", "#{project_dir}_POD", "done")
 end
 
 input_filename = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "#{Metadata.pisbn}_POD.pdf")
 pitstop_filename = File.join(pitstop_dir, "#{project_dir}_#{stage_dir}-#{Metadata.pisbn}.pdf")
 pitstop_error = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "PITSTOP_ERROR.txt")
+
+if File.file?(pitstop_error)
+	FileUtils.rm(pitstop_error)
+end
 
 sleep(30)
 
@@ -28,7 +32,6 @@ else
 	end
 end
 
-FileUtils.rm(Bkmkr::Paths.alert)
 FileUtils.rm(input_file)
 
 # old script
