@@ -3,6 +3,13 @@ require 'fileutils'
 require_relative '../bookmaker/core/header.rb'
 require_relative '../bookmaker/core/metadata.rb'
 
+configfile = File.join(Bkmkr::Paths.project_tmp_dir, "config.json")
+file = File.read(configfile)
+data_hash = JSON.parse(file)
+
+project_dir = data_hash['project']
+stage_dir = data_hash['stage']
+
 if File.file?("#{Bkmkr::Paths.resource_dir}/staging.txt")
 	pitstop_dir = File.join("P:", "#{project_dir}_POD_staging", "done")
 else
