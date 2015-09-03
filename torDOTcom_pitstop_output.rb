@@ -41,6 +41,21 @@ end
 
 FileUtils.rm(pitstop_filename)
 
+# LOGGING
+
+# see if pitstop failed
+if File.file?(pitstop_error)
+	test_pitstop_status = "----- pitstop finished successfully"
+else
+	test_pitstop_status = "----- pitstop FAILED"
+end
+
+# Printing the test results to the log file
+File.open(Bkmkr::Paths.log_file, 'a+') do |f|
+	f.puts "----- PITSTOP PROCESSING COMPLETE"
+	f.puts test_pitstop_status
+end
+
 # old script
 # unescapeargv = ARGV[0].chomp('"').reverse.chomp('"').reverse
 # input_file = File.expand_path(unescapeargv)

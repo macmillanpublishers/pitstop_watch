@@ -19,3 +19,10 @@ input_filename = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "#{Metadata.pi
 pitstop_filename = File.join(pitstop_dir, "#{project_dir}_#{stage_dir}-#{Metadata.pisbn}.pdf")
 
 FileUtils.mv(input_filename, pitstop_filename)
+
+# LOGGING
+
+# Printing the test results to the log file
+File.open(Bkmkr::Paths.log_file, 'a+') do |f|
+	f.puts "----- SENT PDF TO PITSTOP"
+end
