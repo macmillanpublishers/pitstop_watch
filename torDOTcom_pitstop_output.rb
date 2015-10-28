@@ -11,9 +11,17 @@ project_dir = data_hash['project']
 stage_dir = data_hash['stage']
 
 if File.file?("#{Bkmkr::Paths.resource_dir}/staging.txt")
-	pitstop_dir = File.join("P:", "#{project_dir}_POD_staging", "done")
+	staging = "_staging"
 else
-	pitstop_dir = File.join("P:", "#{project_dir}_POD", "done")
+	staging = ""
+end
+
+this_pitstop_dir = File.join("P:", "#{project_dir}_POD#{staging}", "input")
+
+if File.file?(this_pitstop_dir)
+	pitstop_dir = this_pitstop_dir
+else
+	pitstop_dir = File.join("P:", "torDOTcom_POD#{staging}", "input")
 end
 
 input_filename = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "#{Metadata.pisbn}_POD.pdf")
