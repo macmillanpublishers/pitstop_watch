@@ -16,12 +16,12 @@ else
 	staging = ""
 end
 
-this_pitstop_dir = File.join("P:", "#{project_dir}_POD#{staging}", "input")
+this_pitstop_dir = File.join("P:", "#{project_dir}_POD#{staging}", "done")
 
 if File.file?(this_pitstop_dir)
 	pitstop_dir = this_pitstop_dir
 else
-	pitstop_dir = File.join("P:", "torDOTcom_POD#{staging}", "input")
+	pitstop_dir = File.join("P:", "SMP_POD#{staging}", "done")
 end
 
 input_filename = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "#{Metadata.pisbn}_POD.pdf")
