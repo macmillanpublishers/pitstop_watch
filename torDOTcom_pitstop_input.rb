@@ -18,7 +18,7 @@ end
 
 this_pitstop_dir = File.join("P:", "#{project_dir}_POD#{staging}", "input")
 
-if File.file?(this_pitstop_dir)
+if File.exist?(this_pitstop_dir)
 	pitstop_dir = this_pitstop_dir
 else
 	pitstop_dir = File.join("P:", "SMP_POD#{staging}", "input")
