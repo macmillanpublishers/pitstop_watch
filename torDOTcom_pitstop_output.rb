@@ -20,84 +20,84 @@ ensure
 end
 
 def checkStaging(file, logkey='')
-	if File.file?(file)
-		staging = "_staging"
-	else
-		staging = ""
-	end
-	return staging
+  if File.file?(file)
+    staging = "_staging"
+  else
+    staging = ""
+  end
+  return staging
 rescue => logstring
-	return ''
+  return ''
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 def setPitstopDir(this_pitstop_dir, staging, logkey='')
-	if File.exist?(this_pitstop_dir)
-		pitstop_dir = this_pitstop_dir
-	else
-		pitstop_dir = File.join("P:", "SMP_POD#{staging}", "input")
-	end
-	return pitstop_dir
+  if File.exist?(this_pitstop_dir)
+    pitstop_dir = this_pitstop_dir
+  else
+    pitstop_dir = File.join("P:", "SMP_POD#{staging}", "input")
+  end
+  return pitstop_dir
 rescue => logstring
-	return ''
+  return ''
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 ## wrapping a Mcmlln::Tools method in a new method for this script; to return a result for json_logfile
 def rmFile(file, logkey='')
-	if File.file?(file)
-		Mcmlln::Tools.deleteFile(file)
-	else
-		logstring = 'n-a'
-	end
+  if File.file?(file)
+    Mcmlln::Tools.deleteFile(file)
+  else
+    logstring = 'n-a'
+  end
 rescue => logstring
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 def writeErrorFile(pitstop_error, logkey='')
-	File.open(pitstop_error, 'w') do |output|
-		output.write "Pitstop could not process your final PDF. Please email workflows@macmillan.com for assistance."
-	end
+  File.open(pitstop_error, 'w') do |output|
+    output.write "Pitstop could not process your final PDF. Please email workflows@macmillan.com for assistance."
+  end
 rescue => logstring
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 # copy completed file back to done_dir, or write ERROR file
 def copyProcessedFile(pitstop_filename, input_filename, pitstop_error, logkey='')
-	if File.file?(pitstop_filename)
-		FileUtils.cp(pitstop_filename, input_filename)
-		logstring = 'copied processed file (<= 30 seconds wait )'
-	else
-		sleep(60)
-		if File.file?(pitstop_filename)
-			FileUtils.cp(pitstop_filename, input_filename)
-			logstring = 'copied processed file (30-90 second wait)'
-		else
-			writeErrorFile(pitstop_error, 'write_pitstop_err_file')
-			logstring = 'no processed file in 90 seconds, wrote errfile'
-		end
-	end
+  if File.file?(pitstop_filename)
+    FileUtils.cp(pitstop_filename, input_filename)
+    logstring = 'copied processed file (<= 30 seconds wait )'
+  else
+    sleep(60)
+    if File.file?(pitstop_filename)
+      FileUtils.cp(pitstop_filename, input_filename)
+      logstring = 'copied processed file (30-90 second wait)'
+    else
+      writeErrorFile(pitstop_error, 'write_pitstop_err_file')
+      logstring = 'no processed file in 90 seconds, wrote errfile'
+    end
+  end
 rescue => logstring
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 def testErrFile(pitstop_error, logkey='')
-	# see if pitstop failed
-	if File.file?(pitstop_error)
-		test_pitstop_status = "----- pitstop FAILED"
-	else
-		test_pitstop_status = "----- pitstop finished successfully"
-	end
-	return test_pitstop_status
+  # see if pitstop failed
+  if File.file?(pitstop_error)
+    test_pitstop_status = "----- pitstop FAILED"
+  else
+    test_pitstop_status = "----- pitstop finished successfully"
+  end
+  return test_pitstop_status
 rescue => logstring
-	return ''
+  return ''
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 
@@ -139,11 +139,11 @@ test_pitstop_status = testErrFile(pitstop_error, 'test_for_pitstop_err_file')
 
 # wrapping this legacy log in a begin block so it doesn't hose travis tests.
 begin
-	# Printing the test results to the log file
-	File.open(Bkmkr::Paths.log_file, 'a+') do |f|
-		f.puts "----- PITSTOP PROCESSING COMPLETE"
-		f.puts test_pitstop_status
-	end
+  # Printing the test results to the log file
+  File.open(Bkmkr::Paths.log_file, 'a+') do |f|
+    f.puts "----- PITSTOP PROCESSING COMPLETE"
+    f.puts test_pitstop_status
+  end
 rescue => e
   puts '(Ignore for unit-tests:) ERROR encountered in process block: ', e
 end

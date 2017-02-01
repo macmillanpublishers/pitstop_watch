@@ -19,37 +19,37 @@ ensure
 end
 
 def checkStaging(file, logkey='')
-	if File.file?(file)
-		staging = "_staging"
-	else
-		staging = ""
-	end
-	return staging
+  if File.file?(file)
+    staging = "_staging"
+  else
+    staging = ""
+  end
+  return staging
 rescue => logstring
-	return ''
+  return ''
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 def setPitstopDir(this_pitstop_dir, staging, logkey='')
-	if File.exist?(this_pitstop_dir)
-		pitstop_dir = this_pitstop_dir
-	else
-		pitstop_dir = File.join("P:", "SMP_POD#{staging}", "input")
-	end
-	return pitstop_dir
+  if File.exist?(this_pitstop_dir)
+    pitstop_dir = this_pitstop_dir
+  else
+    pitstop_dir = File.join("P:", "SMP_POD#{staging}", "input")
+  end
+  return pitstop_dir
 rescue => logstring
-	return ''
+  return ''
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 ## wrapping a Mcmlln::Tools method in a new method for this script; to return a result for json_logfile
 def moveFileToPitstopDir(file, dest, logkey='')
-	Mcmlln::Tools.moveFile(file, dest)
+  Mcmlln::Tools.moveFile(file, dest)
 rescue => logstring
 ensure
-	Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
+  Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
 
 # ---------------------- PROCESSES
@@ -78,10 +78,10 @@ moveFileToPitstopDir(input_filename, pitstop_filename, 'move_file_to_pitstop_dir
 # ---------------------- LOGGING
 # wrapping this legacy log in a begin block so it doesn't hose travis tests.
 begin
-	# Printing the test results to the log file
-	File.open(Bkmkr::Paths.log_file, 'a+') do |f|
-		f.puts "----- SENT PDF TO PITSTOP"
-	end
+  # Printing the test results to the log file
+  File.open(Bkmkr::Paths.log_file, 'a+') do |f|
+    f.puts "----- SENT PDF TO PITSTOP"
+  end
 rescue => e
   puts '(Ignore for unit-tests:) ERROR encountered in process block: ', e
 end
