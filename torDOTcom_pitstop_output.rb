@@ -36,7 +36,7 @@ def setPitstopDir(this_pitstop_dir, staging, logkey='')
   if File.exist?(this_pitstop_dir)
     pitstop_dir = this_pitstop_dir
   else
-    pitstop_dir = File.join("P:", "SMP_POD#{staging}", "input")
+    pitstop_dir = File.join("P:", "SMP_POD#{staging}", "done")
   end
   return pitstop_dir
 rescue => logstring
@@ -93,6 +93,7 @@ def testErrFile(pitstop_error, logkey='')
   else
     test_pitstop_status = "----- pitstop finished successfully"
   end
+  logstring = test_pitstop_status
   return test_pitstop_status
 rescue => logstring
   return ''
