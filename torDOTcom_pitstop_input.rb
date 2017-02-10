@@ -76,15 +76,6 @@ pitstop_filename = File.join(pitstop_dir, "#{project_dir}_#{stage_dir}-#{Metadat
 moveFileToPitstopDir(input_filename, pitstop_filename, 'move_file_to_pitstop_dir')
 
 # ---------------------- LOGGING
-# wrapping this legacy log in a begin block so it doesn't hose travis tests.
-begin
-  # Printing the test results to the log file
-  File.open(Bkmkr::Paths.log_file, 'a+') do |f|
-    f.puts "----- SENT PDF TO PITSTOP"
-  end
-rescue => e
-  puts '(Ignore for unit-tests:) ERROR encountered in process block: ', e
-end
 
 # Write json log:
 Mcmlln::Tools.logtoJson(@log_hash, 'completed', Time.now)
