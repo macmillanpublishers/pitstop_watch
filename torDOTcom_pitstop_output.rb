@@ -89,14 +89,11 @@ end
 def testErrFile(pitstop_error, logkey='')
   # see if pitstop failed
   if File.file?(pitstop_error)
-    test_pitstop_status = "----- pitstop FAILED"
+    logstring = "----- pitstop FAILED"
   else
-    test_pitstop_status = "----- pitstop finished successfully"
+    logstring = "----- pitstop finished successfully"
   end
-  logstring = test_pitstop_status
-  return test_pitstop_status
 rescue => logstring
-  return ''
 ensure
   Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
@@ -136,18 +133,7 @@ rmFile(pitstop_filename, 'rm_file_from_pitstop_folder')
 # ---------------------- LOGGING
 
 #test for pitstop errfile for old logging framework
-test_pitstop_status = testErrFile(pitstop_error, 'test_for_pitstop_err_file')
-
-# wrapping this legacy log in a begin block so it doesn't hose travis tests.
-begin
-  # Printing the test results to the log file
-  File.open(Bkmkr::Paths.log_file, 'a+') do |f|
-    f.puts "----- PITSTOP PROCESSING COMPLETE"
-    f.puts test_pitstop_status
-  end
-rescue => e
-  puts '(Ignore for unit-tests:) ERROR encountered in process block: ', e
-end
+testErrFile(pitstop_error, 'test_for_pitstop_err_file')
 
 # Write json log:
 Mcmlln::Tools.logtoJson(@log_hash, 'completed', Time.now)
