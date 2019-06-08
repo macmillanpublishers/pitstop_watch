@@ -115,9 +115,9 @@ this_pitstop_dir = File.join("P:", "#{project_dir}_POD#{staging}", "done")
 # choose pitstop_dir by project, if folder doesn't exist for this project default to SMP_POD
 pitstop_dir = setPitstopDir(this_pitstop_dir, staging, 'set_pitstop_dir')
 
-input_filename = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "#{Metadata.pisbn}_POD.pdf")
+input_filename = File.join(Metadata.final_dir, "#{Metadata.pisbn}_POD.pdf")
 pitstop_filename = File.join(pitstop_dir, "#{project_dir}_#{stage_dir}-#{Metadata.pisbn}.pdf")
-pitstop_error = File.join(Bkmkr::Paths.done_dir, Metadata.pisbn, "PITSTOP_ERROR.txt")
+pitstop_error = File.join(Metadata.final_dir, "PITSTOP_ERROR.txt")
 
 # rm existing pitstrop_errfile if exists (from prior run(s))
 rmFile(pitstop_error, 'rm_pitstop_error_file')
