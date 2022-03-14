@@ -116,7 +116,7 @@ pitstop_full_filepath = File.join(pitstop_dir, pitstop_filename)
 
 input_filename = File.join(Metadata.final_dir, "#{Metadata.pisbn}_POD.pdf")
 
-moveFileToPitstopDir(input_filename, pitstop_filename, 'move_file_to_pitstop_dir')
+moveFileToPitstopDir(input_filename, pitstop_full_filepath, 'move_file_to_pitstop_dir')
 
 # ---------------------- LOGGING
 
