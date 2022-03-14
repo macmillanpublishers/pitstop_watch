@@ -21,10 +21,10 @@ end
 
 def checkStaging(staging_file, prod_pitstop_drive, stg_pitstop_drive, logkey='')
   if File.file?(staging_file)
-    ps_drive_letter = stg_pitstop_drive
+    ps_drive_letter = "#{stg_pitstop_drive}:"
     staging = "_staging"
   else
-    ps_drive_letter = prod_pitstop_drive
+    ps_drive_letter = "#{prod_pitstop_drive}:"
     staging = ""
   end
   return ps_drive_letter, staging
