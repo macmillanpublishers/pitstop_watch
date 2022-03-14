@@ -38,12 +38,13 @@ def setPitstopDir(project_dir, pi_pitstop_dir, imprint, default, imprint_default
   # set generic default for backup / rescue
   backup_pitstop_dir = File.join(ps_drive_letter, "#{default}_POD")
 
-  if pi_pitstop_dir
+  if pi_pitstop_dir != ""
     ps_folder_prefix = pi_pitstop_dir
   elsif imprint_defaults.has_key?(imprint)
     ps_folder_prefix = imprint_defaults[imprint]
   else
     # this value correponds to bookmaker IN folder, values will be 'bookmaker' or 'tordotcom'
+    #   (generic 'bookmaker_POD' folder does not exist so will revert to default)
     ps_folder_prefix = project_dir
   end
 
@@ -87,8 +88,12 @@ pitstop_cfg_hash = readJson(pitstop_cfg_json, 'read_pitstop_cfg_json')
 ##### local definition(s) based on data from config.jsons
 project_dir = cfg_hash['project']
 stage_dir = cfg_hash['stage']
-imprint = cfg_hash['stage']
-if cfg_hash.has_key?('pitstop_dir') then pi_pitstop_dir = cfg_hash['pitstop_dir'] else pi_pitstop_dir = '' end
+imprint = cfg_hash['resourcedir']
+if cfg_hash.has_key?('pitstop_dir')
+  pi_pitstop_dir = cfg_hash['pitstop_dir']
+else
+  pi_pitstop_dir = ''
+end
 prod_pitstop_drive = pitstop_cfg_hash['prod_pitstop_drive']
 stg_pitstop_drive = pitstop_cfg_hash['stg_pitstop_drive']
 default = pitstop_cfg_hash['default']

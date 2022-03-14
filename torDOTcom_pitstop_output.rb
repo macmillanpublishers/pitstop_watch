@@ -7,6 +7,7 @@ require_relative '../bookmaker/core/metadata.rb'
 local_log_hash, @log_hash = Bkmkr::Paths.setLocalLoghash
 
 json_log = Bkmkr::Paths.json_log
+testing_value_file = File.join(Bkmkr::Paths.resource_dir, "staging.txt")
 pitstop_cfg_json = File.join(Bkmkr::Paths.scripts_dir, "pitstop_watch", "pitstop_cfg.json")
 input_filename = File.join(Metadata.final_dir, "#{Metadata.pisbn}_POD.pdf")
 
@@ -38,12 +39,12 @@ end
 def getPitstopFilepath(json_log_hash, pitstop_maindir_backup, default_dir_prefix_backup, staging, logkey='')
   pitstop_maindir = pitstop_maindir_backup
   pitstop_filename = default_dir_prefix_backup
-  json_values_used = False
+  json_values_used = false
   if json_log_hash.has_key?("torDOTcom_pitstop_input.rb")
     if json_log_hash["torDOTcom_pitstop_input.rb"].has_key?("pitstop_maindir") && json_log_hash["torDOTcom_pitstop_input.rb"].has_key?("pitstop_filename")
       pitstop_maindir = json_log_hash["torDOTcom_pitstop_input.rb"]["pitstop_maindir"]
       pitstop_filename = json_log_hash["torDOTcom_pitstop_input.rb"]["pitstop_filename"]
-      json_values_used = True
+      json_values_used = true
     end
   end
   pitstop_full_filepath = File.join(pitstop_maindir, 'done', pitstop_filename)
@@ -53,7 +54,7 @@ def getPitstopFilepath(json_log_hash, pitstop_maindir_backup, default_dir_prefix
   # if staging != ""
   #   pitstop_full_filepath = File.join("#{pitstop_maindir}_staging", 'done', pitstop_filename)
   # end
-  if json_values_used == False
+  if json_values_used == false
     logstring = "unable to find or parse jsonlog for pitstop_input values, using default"
   end
   return pitstop_full_filepath
