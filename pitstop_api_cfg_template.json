@@ -1,0 +1,5 @@
+{
+  "prod_pitstop_api_url": "hostname/pitstop_input",
+  "stg_pitstop_api_url": "hostname_stg/pitstop_input",
+  "ps_setting_keyname":"pitstop_setting"
+}
