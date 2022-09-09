@@ -1,3 +1,6 @@
+# python compiled code
+*.pyc
+
 # OS generated files #
 .DS_Store
 

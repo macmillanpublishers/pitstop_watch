@@ -1,5 +1,23 @@
 {
-  "prod_pitstop_api_url": "hostname/pitstop_input",
-  "stg_pitstop_api_url": "hostname_stg/pitstop_input",
+  "from_pitstop_url_prod": "hostname/post/from_pitstop",
+  "from_pitstop_credentials_prod": {
+    "uname": "",
+    "pw": ""
+  },
+  "from_pitstop_url_stg": "hostname_stg/post/from_pitstop",
+  "from_pitstop_credentials_stg": {
+    "uname": "",
+    "pw": ""
+  },
+  "to_pitstop_url_prod": "hostname/post/to_pitstop",
+  "to_pitstop_credentials_prod": {
+    "uname": "",
+    "pw": ""
+  },
+  "to_pitstop_url_stg": "hostname_stg/post/to_pitstop",
+  "to_pitstop_credentials_stg": {
+    "uname": "",
+    "pw": ""
+  },
   "ps_setting_keyname":"pitstop_setting"
 }

@@ -1,6 +1,4 @@
 {
-  "prod_pitstop_drive": "Q",
-  "stg_pitstop_drive": "P",
   "default": "SMP",
   "imprint_defaults": {
     "flatiron": "cropmarks"

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cf:Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:cf="http://www.enfocus.com/PitStop/21/PitStopServerCLI_Configuration.xsd">
+  <cf:Versioning>
+   <cf:Version>10</cf:Version>
+  </cf:Versioning>
+
+ <cf:Initialize>
+  <cf:TempPath>S:\PitStop_TEMP_folder</cf:TempPath>
+  <cf:ProcessingMethod>PreferServer</cf:ProcessingMethod>
+ </cf:Initialize>
+
+<cf:TaskReport>
+  <!-- <cf:TaskReportPath>C:\Documents and Settings\user\Desktop\MyTestTaskReport.xml</cf:TaskReportPath> -->
+  <cf:LogCommandLine>true</cf:LogCommandLine>
+  <cf:LogProcessResults>true</cf:LogProcessResults>
+  <cf:LogErrors>true</cf:LogErrors>
+</cf:TaskReport>
+
+  <cf:Process TaskID="bm_pitstop">
+	  <cf:Fonts>
+	   <cf:UseSystemFonts>false</cf:UseSystemFonts>
+	  </cf:Fonts>
+
+	  <cf:Mutators>
+	   <cf:ActionList>S:\resources\test\torDOTcomPageBoxes_v02\Remove inside Bleed.eal</cf:ActionList>
+	  </cf:Mutators>
+  </cf:Process>
+
+</cf:Configuration>
