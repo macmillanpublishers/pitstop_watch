@@ -70,7 +70,7 @@ ensure
 end
 
 # this function identical to one in validator_cleanup_direct; except for .py invocation line
-def sendFilesToPSserver(files_to_send_list, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, logkey='')
+def sendFilesToPSserver(files_to_send_list, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, logkey='')
   #loop through files to upload:
   argstring = "#{file} #{post_url} #{uname} #{pw} #{ps_setting_keyname} #{ps_setting} job_id #{job_id} environment #{environment}"
   logstring = "api args: #{argstring}"

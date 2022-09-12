@@ -67,19 +67,22 @@ def checkTaskReport(tr_xml):
         if os.path.exists(tr_xml):
             with open(tr_xml) as fobj:
                 xml = fobj.read()
-
-                root = etree.fromstring(xml)
+                xml = bytes(bytearray(xml, encoding='utf-8'))
+                root = etree.XML(xml)
                 ns = {"tr": "http://www.enfocus.com/PitStop/13/PitStopServerCLI_TaskReport.xsd"}
-                errs = root.find('.//tr:ProcessResults/tr:Errors', ns)
-                fails = root.find('.//tr:ProcessResults/tr:Failures', ns)
-                fixes = root.find('.//tr:ProcessResults/tr:Fixes', ns)
-                ncfails = root.find('.//tr:ProcessResults/tr:NonCriticalFailures', ns)
-
-                if errs > 0 or fails > 0 or ncfails > 0 or fixes == 0:
-                    trstatus = 'Problem indicated in ps>taskreport>ProcessResults'
-                    logging.warning('{}: {} Errors, {} Failures, {} NonCriticalFailures, {} Fixes'.format(trstatus,errs,fails,ncfails,fixes))
+                exitcode = int(root.find('.//tr:ExitCode', ns).text)
+                if exitcode is not None and int(exitcode.text) == 0:
+                    errs = int(root.find('.//tr:ProcessResults/tr:Errors', ns).text)
+                    fails = int(root.find('.//tr:ProcessResults/tr:Failures', ns).text)
+                    fixes = int(root.find('.//tr:ProcessResults/tr:Fixes', ns).text)
+                    ncfails = int(root.find('.//tr:ProcessResults/tr:NonCriticalFailures', ns).text)
+                    if errs > 0 or fails > 0 or ncfails > 0 or fixes == 0:
+                        trstatus = 'Problem indicated in ps>taskreport>ProcessResults'
+                        logging.warning('{}: {} Errors, {} Failures, {} NonCriticalFailures, {} Fixes'.format(trstatus,errs,fails,ncfails,fixes))
+                    else:
+                        trstatus = 'ok'
                 else:
-                    trstatus = 'ok'
+                    trstatus = 'Problem indicated in taskreport: nonzero exitcode or exitcode is None'
         else:
             trstatus = 'pitstop task report not present'
         return trstatus
@@ -94,7 +97,7 @@ def invokeSynchronousSubprocess(popen_params):
     output = ''
     exitcode = ''
     try:
-        p = subprocess.Popen(popen_params)
+        p = subprocess.Popen(popen_params, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         logging.info("pitstop subprocess initiated, pid {}".format(p.pid))
         output = p.communicate()[0]
         exitcode = p.returncode
@@ -110,8 +113,8 @@ if __name__ == '__main__':
     try:
         # init logging
         try_create_dir(logdir)
-        logging.basicConfig(filename=logfile, level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt='%Y-%m-%d %H:%M:%S')#DEBUG)
-        logging.info("* * * * * * running {} for file: '{}'".format(this_script, shared_cfg.infile_name))
+        logging.basicConfig(filename=logfile, level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt='%Y-%m-%d %H:%M:%S', force=True)
+        logging.info("* * * * * * running {} for file: '{}'".format(this_script, infile_name))
 
         # set values from configs
         pitstop_exec_cfg_data = readJSON(pitstop_exec_cfg_json)
@@ -152,11 +155,13 @@ if __name__ == '__main__':
         # set status value for return
         if ps_exitcode == 0 and ps_results == 'ok':
             ps_status = 'success'
-        elif ps_exitcode != 0:
-            ps_status = output
-        elif ps_results != 'ok':
-            ps_status = ps_results
-        logging.info("returning ps_status value: {}".format(ps_status))
+            logging.info("returning ps_status value: {}".format(ps_status))
+        else:
+            if ps_exitcode != 0:
+                ps_status = output
+            elif ps_results != 'ok':
+                ps_status = ps_results
+            logging.warn("returning ps_status value: {}".format(ps_status))
 
         # run api: response upon successful transaction is 'Success'
         api_response = api_POST_to_flask.apiPOST(outfile, api_url, api_uname, api_pw, {'job_id': job_id, 'ps_status': ps_status})

@@ -22,8 +22,10 @@ xmlns:cf="http://www.enfocus.com/PitStop/21/PitStopServerCLI_Configuration.xsd">
 	  </cf:Fonts>
 
 	  <cf:Mutators>
-      <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\MakeEven.eal</cf:ActionList>
-      <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\BookMaker_Cropmarks_v02.eal</cf:ActionList>
+      <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\InsertBackAd.eal</cf:ActionList>
+      <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\Add Mask to gutter.eal</cf:ActionList>
+      <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\Remove inside Bleed.eal</cf:ActionList>
+      <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\Change Media Box to bleed size.eal</cf:ActionList>
     </cf:Mutators>
   </cf:Process>
 
