@@ -70,7 +70,7 @@ def checkTaskReport(tr_xml):
                 xml = bytes(bytearray(xml, encoding='utf-8'))
                 root = etree.XML(xml)
                 ns = {"tr": "http://www.enfocus.com/PitStop/13/PitStopServerCLI_TaskReport.xsd"}
-                exitcode = int(root.find('.//tr:ExitCode', ns).text)
+                exitcode = root.find('.//tr:ExitCode', ns)
                 if exitcode is not None and int(exitcode.text) == 0:
                     errs = int(root.find('.//tr:ProcessResults/tr:Errors', ns).text)
                     fails = int(root.find('.//tr:ProcessResults/tr:Failures', ns).text)
@@ -158,7 +158,7 @@ if __name__ == '__main__':
             logging.info("returning ps_status value: {}".format(ps_status))
         else:
             if ps_exitcode != 0:
-                ps_status = output
+                ps_status = output.strip()
             elif ps_results != 'ok':
                 ps_status = ps_results
             logging.warn("returning ps_status value: {}".format(ps_status))
