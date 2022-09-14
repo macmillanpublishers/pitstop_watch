@@ -70,7 +70,7 @@ ensure
 end
 
 # this function identical to one in validator_cleanup_direct; except for .py invocation line
-def sendFilesToPSserver(files_to_send_list, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, logkey='')
+def sendFileToPSserver(files_to_send_list, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, logkey='')
   #loop through files to upload:
   argstring = "#{file} #{post_url} #{uname} #{pw} #{ps_setting_keyname} #{ps_setting} job_id #{job_id} environment #{environment}"
   logstring = "api args: #{argstring}"
@@ -78,7 +78,7 @@ def sendFilesToPSserver(files_to_send_list, api_POST_to_flask_py, post_url, unam
   return api_POST_results
 rescue => e
   p e
-  logstring += "\n - error with 'sendFilesToPSserver': #{e}"
+  logstring += "\n - error with 'sendFileToPSserver': #{e}"
 ensure
   Mcmlln::Tools.logtoJson(@log_hash, logkey, logstring)
 end
@@ -133,7 +133,7 @@ ps_setting = getPitstopSetting(project_dir, pi_pitstop_dir, imprint, default, im
 @log_hash['ps_setting'] = ps_setting
 
 # send file
-api_POST_results = sendFilesToPSserver(files_to_send_list, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, 'send_pdf_to_pitstop_api')
+api_POST_results = sendFileToPSserver(input_filename, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, 'send_pdf_to_pitstop_api')
 @log_hash['api_POST_results'] = api_POST_results
 
 # write err on send err
