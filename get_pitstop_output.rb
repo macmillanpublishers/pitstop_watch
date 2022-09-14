@@ -39,7 +39,7 @@ def getPitstopStatus(ps_json, ps_pdf, check_count, seconds_per_check, pitstop_in
   ps_status = ''
   json_found = false
   i = 0
-  while !File.file?(ps_json) && i <= check_count do
+  while !File.file?(ps_json) && i < check_count do
     sleep(seconds_per_check)
     i+=1
   end

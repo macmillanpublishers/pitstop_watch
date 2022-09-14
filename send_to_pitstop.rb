@@ -115,7 +115,7 @@ imprint_defaults = pitstop_imprint_defaults_hash['imprint_defaults']
 
 ps_setting_keyname = pitstop_api_cfg_hash['ps_setting_keyname']
 # set url per prod/stg environment
-if File.file?(staging_file)
+if File.file?(testing_value_file)
   pitstop_url = pitstop_api_cfg_hash['to_pitstop_url_stg']
   environment = 'staging'
   uname = pitstop_api_cfg_hash['from_pitstop_credentials_stg']['uname']
