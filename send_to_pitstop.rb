@@ -133,7 +133,7 @@ ps_setting = getPitstopSetting(project_dir, pi_pitstop_dir, imprint, default, im
 @log_hash['ps_setting'] = ps_setting
 
 # send file
-api_POST_results = sendFileToPSserver(input_filename, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, 'send_pdf_to_pitstop_api')
+api_POST_results = sendFileToPSserver(input_filename, api_POST_to_flask_py, pitstop_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, 'send_pdf_to_pitstop_api')
 @log_hash['api_POST_results'] = api_POST_results
 
 # write err on send err
