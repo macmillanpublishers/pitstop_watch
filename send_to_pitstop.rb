@@ -74,8 +74,8 @@ def sendFileToPSserver(file_to_send, api_POST_to_flask_py, post_url, uname, pw, 
   #loop through files to upload:
   argstring = "#{file_to_send} #{post_url} #{uname} #{pw} #{ps_setting_keyname} #{ps_setting} job_id #{job_id} environment #{environment}"
   logstring = "api args: #{argstring}"
-  api_result = localRunPython(api_POST_to_flask_py, argstring, "api_POST_to_flask--file:_#{file}")
-  return api_POST_results
+  api_result = localRunPython(api_POST_to_flask_py, argstring, "run_py:api_POST_to_flask")
+  return api_result
 rescue => e
   p e
   logstring += "\n - error with 'sendFileToPSserver': #{e}"
