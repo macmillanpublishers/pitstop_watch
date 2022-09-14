@@ -118,13 +118,13 @@ ps_setting_keyname = pitstop_api_cfg_hash['ps_setting_keyname']
 if File.file?(testing_value_file)
   pitstop_url = pitstop_api_cfg_hash['to_pitstop_url_stg']
   environment = 'staging'
-  uname = pitstop_api_cfg_hash['from_pitstop_credentials_stg']['uname']
-  pw = pitstop_api_cfg_hash['from_pitstop_credentials_stg']['pw']
+  uname = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['uname']
+  pw = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['pw']
 else
   pitstop_url = pitstop_api_cfg_hash['to_pitstop_url_prod']
   environment = 'prod'
-  uname = pitstop_api_cfg_hash['from_pitstop_credentials_prod']['uname']
-  pw = pitstop_api_cfg_hash['from_pitstop_credentials_prod']['pw']
+  uname = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['uname']
+  pw = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['pw']
 end
 @log_hash['pitstop_url'] = pitstop_url
 
