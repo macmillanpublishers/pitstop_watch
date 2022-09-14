@@ -96,7 +96,7 @@ if File.file?(pitstop_error)
 else
   pitstop_api_cfg_hash = readJson(pitstop_api_cfg_json, 'read_pitstop_api_cfg_json')
   api_uploads_tmpdir = pitstop_api_cfg_hash['from_pitstop_uploads_dir']['path']
-  upload_job_id = File.basename(Bkmkr::Paths.project_tmpdir)
+  upload_job_id = File.basename(Bkmkr::Paths.project_tmp_dir)
   ps_pdf = File.join(api_uploads_tmpdir, upload_job_id, "#{Metadata.pisbn}_POD.pdf")
   ps_json = File.join(api_uploads_tmpdir, upload_job_id, "pitstop_status.json")
   @log_hash['expected_pitstop_pdf_filepath'] = ps_pdf
