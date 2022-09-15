@@ -21,7 +21,7 @@
   },
   "ps_setting_keyname":"pitstop_setting",
   "from_pitstop_uploads_dir": {
-    "path":"S:\\flask-api\\api-uploads_tmp\\from_pitstop",
+    "path":"S:/flask-api/api-uploads_tmp/from_pitstop",
     "Note":"value for 'path' will need to match ROUTES>from_pitstop>tmpdir in flask instance/config"
   }
 }
