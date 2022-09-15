@@ -37,6 +37,7 @@ def writeJSON(dictname, filename):
 if __name__ == '__main__':
     # init logging
     logging.basicConfig(filename=logfile, level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt='%Y-%m-%d %H:%M:%S', force=True)
-    logging.debug("* * * * * * running {} for file: '{}'".format(this_script, infile_name))
+    logging.info("* * * * * * running {} for file: '{}'".format(this_script, infile_name))
+    logging.debug("'pitstop_status' value: {}".format(pitstop_status))
 
     writeJSON(ps_dict, ps_json)

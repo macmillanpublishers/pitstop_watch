@@ -164,11 +164,11 @@ if __name__ == '__main__':
             logging.warn("returning ps_status value: {}".format(ps_status))
 
         # run api: response upon successful transaction is 'Success'
-        api_response = api_POST_to_flask.apiPOST(outfile, api_url, api_uname, api_pw, {'job_id': job_id, 'ps_status': ps_status})
+        api_response = api_POST_to_flask.apiPOST(outfile, api_url, api_uname, api_pw, {'job_id': job_id, 'pitstop_status': ps_status})
 
     except Exception as e:
         logging.error("untrapped top-level exception occurred", exc_info=True)
-        api_response = api_POST_to_flask.apiPOST(inputfile, api_url, api_uname, api_pw, {'job_id': job_id, 'ps_status': 'untrapped top-level exception'})
+        api_response = api_POST_to_flask.apiPOST(inputfile, api_url, api_uname, api_pw, {'job_id': job_id, 'pitstop_status': 'untrapped top-level exception'})
 
     finally:
         logging.info("api_response value: {}".format(api_response))
