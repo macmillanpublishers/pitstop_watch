@@ -13,7 +13,7 @@ pitstop_inprogress = File.join(Bkmkr::Paths.project_tmp_dir, "SENT_TO_PITSTOP.tx
 pitstop_error = File.join(Metadata.final_dir, "PITSTOP_ERROR.txt")
 
 # ---------------------- METHODS
-def readJson(jsonfile, logkey='')
+def readJSON(jsonfile, logkey='')
   data_hash = Mcmlln::Tools.readjson(jsonfile)
   return data_hash
 rescue => logstring
@@ -94,7 +94,7 @@ end
 if File.file?(pitstop_error)
   @log_hash['script_early_exit'] = "pitstop_Errfile already present, file was not sent to pitstop, skipping to the end"
 else
-  pitstop_api_cfg_hash = readJson(pitstop_api_cfg_json, 'read_pitstop_api_cfg_json')
+  pitstop_api_cfg_hash = readJSON(pitstop_api_cfg_json, 'read_pitstop_api_cfg_json')
   api_uploads_tmpdir = pitstop_api_cfg_hash['from_pitstop_uploads_dir']['path']
   upload_job_id = File.basename(Bkmkr::Paths.project_tmp_dir)
   ps_pdf = File.join(api_uploads_tmpdir, upload_job_id, "#{Metadata.pisbn}_POD.pdf")
