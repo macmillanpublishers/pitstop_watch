@@ -25,6 +25,10 @@ xmlns:cf="http://www.enfocus.com/PitStop/21/PitStopServerCLI_Configuration.xsd">
       <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\MakeEven.eal</cf:ActionList>
       <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\BookMaker_Cropmarks_v02.eal</cf:ActionList>
     </cf:Mutators>
+
+    <cf:CertifiedPDF>
+      <cf:CertifiedPDFAction>KeepStatusUnchanged</cf:CertifiedPDFAction>
+    </cf:CertifiedPDF>
   </cf:Process>
 
 </cf:Configuration>

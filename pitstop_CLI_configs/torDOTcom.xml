@@ -27,6 +27,10 @@ xmlns:cf="http://www.enfocus.com/PitStop/21/PitStopServerCLI_Configuration.xsd">
       <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\Remove inside Bleed.eal</cf:ActionList>
       <cf:ActionList>S:\resources\bookmaker_scripts\pitstop_watch\pitstop_CLI_configs\actionLists\Change Media Box to bleed size.eal</cf:ActionList>
     </cf:Mutators>
+
+    <cf:CertifiedPDF>
+      <cf:CertifiedPDFAction>KeepStatusUnchanged</cf:CertifiedPDFAction>
+    </cf:CertifiedPDF>
   </cf:Process>
 
 </cf:Configuration>
