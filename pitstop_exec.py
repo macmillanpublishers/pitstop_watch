@@ -76,7 +76,7 @@ def checkTaskReport(tr_xml):
                     fails = int(root.find('.//tr:ProcessResults/tr:Failures', ns).text)
                     fixes = int(root.find('.//tr:ProcessResults/tr:Fixes', ns).text)
                     ncfails = int(root.find('.//tr:ProcessResults/tr:NonCriticalFailures', ns).text)
-                    if errs > 0 or fails > 0 or ncfails > 0 or fixes == 0:
+                    if errs > 0 or fails > 0 or ncfails > 0:
                         trstatus = 'Problem indicated in ps>taskreport>ProcessResults'
                         logging.warning('{}: {} Errors, {} Failures, {} NonCriticalFailures, {} Fixes'.format(trstatus,errs,fails,ncfails,fixes))
                     else:
