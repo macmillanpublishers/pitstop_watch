@@ -43,14 +43,23 @@ end
 #   2) if imprint defaults has a default for this imprint, use that
 #   3) use project_dir prefix.
 # if corresponding setting is not present in PS for ps_Setting, we will have pitstop_exec set to revert to a default
-def getPitstopSetting(project_dir, pi_pitstop_dir, imprint, default, imprint_defaults, logkey='')
+def getPitstopSetting(project_dir, pi_pitstop_dir, imprint, pitstop_imprint_defaults_hash, logkey='')
+  default = pitstop_imprint_defaults_hash['default']
+  imprint_defaults = pitstop_imprint_defaults_hash['imprint_defaults']
+  ps_settings = pitstop_imprint_defaults_hash['available_ps_settings']
+
   if pi_pitstop_dir != ""
     pitstop_setting = pi_pitstop_dir
   elsif imprint_defaults.has_key?(imprint)
     pitstop_setting = imprint_defaults[imprint]
-  else
+  elsif ps_settings.include? project_dir
     pitstop_setting = project_dir
+  else
+    pitstop_setting = default
   end
+
+  # add bookmaker prefix
+  pitstop_setting = "bookmaker_#{pitstop_setting}"
 
   return pitstop_setting
 rescue => logstring
@@ -70,9 +79,9 @@ ensure
 end
 
 # this function identical to one in validator_cleanup_direct; except for .py invocation line
-def sendFileToPSserver(file_to_send, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, logkey='')
+def sendFileToPSserver(file_to_send, api_POST_to_flask_py, post_url, uname, pw, ps_setting_keyname, ps_setting, job_id, callback_url, logkey='')
   #loop through files to upload:
-  argstring = "#{file_to_send} #{post_url} #{uname} #{pw} #{ps_setting_keyname} #{ps_setting} job_id #{job_id} environment #{environment}"
+  argstring = "#{file_to_send} #{post_url} #{uname} #{pw} #{ps_setting_keyname} #{ps_setting} job_id #{job_id} callback_url #{callback_url}"
   logstring = "api args: #{argstring}"
   api_result = localRunPython(api_POST_to_flask_py, argstring, "run_py__api_POST_to_flask")
   return api_result
@@ -102,7 +111,6 @@ pitstop_api_cfg_hash = readJson(pitstop_api_cfg_json, 'read_pitstop_api_cfg_json
 
 ##### local definition(s) based on data from config.jsons
 project_dir = cfg_hash['project']
-stage_dir = cfg_hash['stage']
 imprint = cfg_hash['resourcedir']
 if cfg_hash.has_key?('pitstop_dir')
   pi_pitstop_dir = cfg_hash['pitstop_dir']
@@ -110,30 +118,28 @@ else
   pi_pitstop_dir = ''
 end
 
-default = pitstop_imprint_defaults_hash['default']
-imprint_defaults = pitstop_imprint_defaults_hash['imprint_defaults']
-
+callback_url = pitstop_api_cfg_hash['callback_api_url']
 ps_setting_keyname = pitstop_api_cfg_hash['ps_setting_keyname']
 # set url per prod/stg environment
 if File.file?(testing_value_file)
   pitstop_url = pitstop_api_cfg_hash['to_pitstop_url_stg']
-  environment = 'staging'
+  # environment = 'staging'
   uname = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['uname']
   pw = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['pw']
 else
   pitstop_url = pitstop_api_cfg_hash['to_pitstop_url_prod']
-  environment = 'prod'
-  uname = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['uname']
-  pw = pitstop_api_cfg_hash['to_pitstop_credentials_stg']['pw']
+  # environment = 'prod'
+  uname = pitstop_api_cfg_hash['to_pitstop_credentials_prod']['uname']
+  pw = pitstop_api_cfg_hash['to_pitstop_credentials_prod']['pw']
 end
 @log_hash['pitstop_url'] = pitstop_url
 
 # determine pitstop setting value to pass to api
-ps_setting = getPitstopSetting(project_dir, pi_pitstop_dir, imprint, default, imprint_defaults, 'get_pitstop_setting')
+ps_setting = getPitstopSetting(project_dir, pi_pitstop_dir, imprint, pitstop_imprint_defaults_hash, 'get_pitstop_setting')
 @log_hash['ps_setting'] = ps_setting
 
 # send file
-api_POST_results = sendFileToPSserver(input_filename, api_POST_to_flask_py, pitstop_url, uname, pw, ps_setting_keyname, ps_setting, job_id, environment, 'send_pdf_to_pitstop_api')
+api_POST_results = sendFileToPSserver(input_filename, api_POST_to_flask_py, pitstop_url, uname, pw, ps_setting_keyname, ps_setting, job_id, callback_url, 'send_pdf_to_pitstop_api')
 @log_hash['api_POST_results'] = api_POST_results
 
 # write err on send err
