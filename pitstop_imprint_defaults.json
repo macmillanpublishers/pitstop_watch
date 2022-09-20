@@ -3,7 +3,7 @@
   "imprint_defaults": {
     "flatiron": "cropmarks"
   },
-  "ps_settings": [
+  "available_ps_settings": [
     "cropmarks",
     "SMP",
     "torDOTcom"
