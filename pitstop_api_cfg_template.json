@@ -1,0 +1,18 @@
+{
+  "callback_api_url": "this_hostname:5000/post/from_pitstop",
+  "to_pitstop_url_prod": "hostname:5000/bkmkr_to_pitstop",
+  "to_pitstop_credentials_prod": {
+    "uname": "",
+    "pw": ""
+  },
+  "to_pitstop_url_stg": "hostname_stg:5000/bkmkr_to_pitstop",
+  "to_pitstop_credentials_stg": {
+    "uname": "",
+    "pw": ""
+  },
+  "ps_setting_keyname":"pitstop_setting",
+  "from_pitstop_uploads_dir": {
+    "path":"S:/flask-api/api-uploads_tmp/from_pitstop",
+    "Note":"value for 'path' will need to match ROUTES>from_pitstop>tmpdir in flask instance/config"
+  }
+}

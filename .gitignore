@@ -1,0 +1,8 @@
+# python compiled code
+*.pyc
+
+# OS generated files #
+.DS_Store
+
+# cfg file(s)
+*cfg.json
