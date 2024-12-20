@@ -1,7 +1,8 @@
 {
   "default": "SMP",
   "imprint_defaults": {
-    "flatiron": "cropmarks"
+    "flatiron": "cropmarks",
+    "pine": "cropmarks"
   },
   "available_ps_settings": [
     "cropmarks",
